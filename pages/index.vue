@@ -161,10 +161,10 @@ export default {
         this.mfaLogin = false
         this.user = await fireDbauth.currentUser
         console.log(this.user)
-        this.getHints = this.user.multiFactor.b
+        this.getHints = await fireDbauth.currentUser.multiFactor.b
       } else {
         this.user.multiFactor.enroll(multiFactorAssertion)
-        this.getHints = this.user.multiFactor.b
+        this.getHints = await fireDbauth.currentUser.multiFactor.b
         window.alert('done enrolled')
       }
     },
