@@ -148,15 +148,15 @@ export default {
       // verificationId will be needed for enrollment completion.
     },
     async acceptCode(mfaLogin) {
-      const cred = firebase.auth.PhoneAuthProvider.credential(
+      const cred = await firebase.auth.PhoneAuthProvider.credential(
         this.verificationId,
         this.verificationCode
       )
-      const multiFactorAssertion = firebase.auth.PhoneMultiFactorGenerator.assertion(
+      const multiFactorAssertion = await firebase.auth.PhoneMultiFactorGenerator.assertion(
         cred
       )
       if (mfaLogin) {
-        window.resolver.resolveSignIn(multiFactorAssertion)
+        await window.resolver.resolveSignIn(multiFactorAssertion)
         window.alert('done authenticated with mfa')
         this.mfaLogin = false
         this.user = await fireDbauth.currentUser
